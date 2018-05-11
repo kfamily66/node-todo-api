@@ -16,6 +16,9 @@ const {
 const {
     User
 } = require('./models/user');
+const {
+    authenticate
+} = require('./middleware/authenticate');
 
 
 const port = process.env.PORT;
@@ -129,8 +132,14 @@ app.post('/users', (req, res) => {
     }).catch((err) => {
         res.status(400).send(err);
     })
-})
+});
 
+
+app.get('/users/me', authenticate, (req, res) => {
+
+    res.send(req.user);
+
+});
 
 
 app.listen(port, () => {
