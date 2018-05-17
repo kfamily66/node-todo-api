@@ -20,7 +20,7 @@ const users = [
               _id: userOneId,
               access: "auth"
             },
-            "secret_word"
+            process.env.JWT_SECRET
           )
           .toString()
       }
@@ -39,7 +39,7 @@ const users = [
               _id: userTwoId,
               access: "auth"
             },
-            "secret_word"
+            process.env.JWT_SECRET
           )
           .toString()
       }
