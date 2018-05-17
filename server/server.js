@@ -4,7 +4,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
 const { ObjectId } = require("mongodb");
-const bcrypt = require("bcryptjs");
 
 const { mongoose } = require("./db/mongoose");
 const { Todo } = require("./models/todo");
