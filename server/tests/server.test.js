@@ -192,7 +192,7 @@ describe("PATCH /todos/:id :", () => {
         // console.log(doc);
         expect(doc.body.todo.text).toBe("Updated todo");
         expect(doc.body.todo.completed).toBe(true);
-        expect(doc.body.todo.completedAt).not.toBeNull();
+        expect(typeof doc.body.todo.completedAt).toBe("number");
       })
       .end(done);
   });
@@ -221,7 +221,7 @@ describe("PATCH /todos/:id :", () => {
       .expect(doc => {
         expect(doc.body.todo.text).toBe("Updated second todo");
         expect(doc.body.todo.completed).toBe(false);
-        expect(doc.body.todo.completedAt).toBeNull();
+        expect(doc.body.todo.completedAt).toBeFalsy();
       })
       .end(done);
   });
@@ -265,8 +265,8 @@ describe("POST /users :", () => {
       })
       .expect(200)
       .expect(res => {
-        expect(res.header).toHaveProperty("x-auth");
-        expect(res.body).toHaveProperty("_id");
+        expect(res.headers["x-auth"]).toBeTruthy();
+        expect(res.body._id).toBeTruthy();
         expect(res.body.email).toBe(email);
       })
       .end(err => {
@@ -278,7 +278,7 @@ describe("POST /users :", () => {
           email
         })
           .then(user => {
-            expect(user).toHaveProperty("_id");
+            expect(user).toBeTruthy();
             expect(user.password).not.toBe(password);
             done();
           })
@@ -322,7 +322,7 @@ describe("POST /users/login:", () => {
       })
       .expect(200)
       .expect(res => {
-        expect(res.headers["x-auth"]).toBeDefined();
+        expect(res.headers["x-auth"]).toBeTruthy();
       })
       .end((err, res) => {
         if (err) {
